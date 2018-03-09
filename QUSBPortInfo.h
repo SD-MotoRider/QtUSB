@@ -27,6 +27,7 @@ class QUSBPort;
 class QUSBPortInfo;
 
 typedef QList<QUSBPortInfo> USBPortInfos;
+typedef USBPortInfos::iterator USBPortInfoIter;
 
 class QTUSBSHARED_EXPORT QUSBPortInfo
 {
