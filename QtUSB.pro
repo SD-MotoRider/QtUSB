@@ -7,12 +7,12 @@
 QT       += xml
 QT       -= gui
 
-CONFIG(debug, debug|release) {
-    TARGET = QtUSBd
-}
-else {
-    TARGET = QtUSB
-}
+TARGET = QtUSB
+
+BINPATH = $$PWD/../Builds
+DESTDIR = "$$BINPATH/bin"
+OBJECTS_DIR = "$$BINPATH/obj"
+MOC_DIR = "$$BINPATH/moc"
 
 TEMPLATE = lib
 

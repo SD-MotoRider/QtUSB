@@ -66,18 +66,20 @@ USBPortInfos QUSBPortInfo::availablePorts()
 							QString detailData = QString((const char*) devIntfDetailData->DevicePath);
 							if (detailData.isEmpty() == false)
 							{
-								int index;
+								QString regKey;
 								QUSBPortInfo usbPortInfo;
 
 								usbPortInfo._systemLocation = detailData;
 
-								index = detailData.indexOf("vid_");
-								index += 4;
-								usbPortInfo._vendorIdentifier = detailData.mid(index, 4).toInt(NULL, 16);
+								int vidIndex = detailData.indexOf("vid_");
+								usbPortInfo._vendorIdentifier = detailData.mid(vidIndex + 4, 4).toInt(NULL, 16);
 
-								index = detailData.indexOf("pid_");
-								index += 4;
-								usbPortInfo._productIdentifier = detailData.mid(index, 4).toInt(NULL, 16);
+								int pidIndex = detailData.indexOf("pid_");
+								usbPortInfo._productIdentifier = detailData.mid(pidIndex + 4, 4).toInt(NULL, 16);
+
+								regKey = QString("VID_%1&PID_%2").
+									arg(usbPortInfo._vendorIdentifier, 4, 16, QChar('0')).
+									arg(usbPortInfo._productIdentifier, 4 , 16, QChar('0'));
 
 								char buffer[MAX_PATH];
 								DWORD nSize;
